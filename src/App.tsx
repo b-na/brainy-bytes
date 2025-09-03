@@ -31,6 +31,11 @@ function App() {
     }
   }
 
+  function toggleFullScreen() {
+    const details = document.querySelector(".isDisplayed");
+    details?.classList.toggle("isFullScreen");
+  }
+
   return (
     <div className="App">
       <header id="header">
@@ -40,11 +45,12 @@ function App() {
         <Profile />
       </section>
       <section id="details">
+        <div id="full-screen-toggle" onClick={toggleFullScreen}></div>
         <nav id="lables-container">
           <ul>
-            <li id="about-lable" className='lable active-lable' info-container="about" onClick={clickLable}><a href="#about-lable">About</a></li>
-            <li id="courses-lable" className='lable' info-container="courses" onClick={clickLable}><a href="#courses-lable">Courses</a></li>
-            <li id="team-lable" className='lable' info-container="team" onClick={clickLable}><a href="#team-lable">Team</a></li>
+            <li id="about-lable" className='lable active-lable' info-container="about" onClick={clickLable}>About</li>
+            <li id="courses-lable" className='lable' info-container="courses" onClick={clickLable}>Courses</li>
+            <li id="team-lable" className='lable' info-container="team" onClick={clickLable}>Team</li>
           </ul>
         </nav>
         <article id="about" className="info-container isDisplayed">
@@ -60,9 +66,6 @@ function App() {
             <TeamMember key={member.name} teamMember={member} />
           ))}
         </article>
-      </section>
-      <section id="contact">
-        <Contact /> 
       </section>
     </div>
   );

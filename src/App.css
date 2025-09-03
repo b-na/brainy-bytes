@@ -6,8 +6,6 @@
 
 :root {
   background-color: #DAD299;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #B0DAB9, #DAD299);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #B0DAB9, #DAD299); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 body {
@@ -15,6 +13,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: -webkit-linear-gradient(to right, #B0DAB9, #DAD299);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #B0DAB9, #DAD299); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 a {
@@ -34,8 +34,10 @@ a:hover {
   padding: 20px;
   display: grid;
   grid-template-columns: 30% auto;
+  grid-template-rows: 200px auto;
   justify-items: end;
   gap: 30px;
+  color: black;
 }
 
 #header {
@@ -78,16 +80,19 @@ a:hover {
 
 #details {
   grid-column: 2;
-  grid-row: span 3;
+  grid-row: span 2;
   width: 100%;
   max-width: 100%;
   max-height: -moz-max-content;
   max-height: max-content;
   padding: 10px;
-  transition: all 1s ease;
 }
 
-#profile, #details, #contact {
+#full-screen-toggle {
+  display: none;
+}
+
+#profile, #details {
   background-color: rgba(33, 161, 125, 0.309);
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   height: -moz-max-content;
@@ -163,9 +168,6 @@ a:hover {
   background-color: white;
 }
 
-.lable {
-  scroll-margin-top: 40px;
-}
 
 .info-container {
   max-height: calc(100vh - 120px);
@@ -179,19 +181,39 @@ a:hover {
 #about {
   flex-direction: column;
   justify-content: flex-start;
-  font-size: 1.2rem;
+  font-size: 1rem;
   gap: 40px;
 }
-#about-text {
+#about-text, #contact-container, #about-info {
   margin: 0 20px;
   text-align: justify;
 }
 
-#about-info {
-  padding: 20px;
+#contact-icons {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-#about-info p {
+#contact-icons a {
+  font-size: 1.5rem;
+}
+
+#mail-icon:hover, #mail-icon:active {
+  color: rgb(79, 140, 197);
+}
+#insta-icon:hover, #insta-icon:active {
+  color: rgb(195, 42, 163);
+}
+#fb-icon:hover, #fb-icon:active {
+  color: rgb(59, 89, 152);
+}
+
+#about-info p, #contact-container p {
   margin: 0;
 }
 
@@ -289,31 +311,6 @@ a:hover {
   display: flex;
 }
 
-#contact {
-  max-width: 350px;
-  padding: 10px;
-  text-align: center;
-}
-
-#contact p {
-  margin: 20px;
-}
-
-#contact a {
-  color: black;
-  font-size: 2rem;
-  margin: 0 10px;
-}
-#contact #mail-icon:hover, #contact #mail-icon:active {
-  color: rgb(79, 140, 197);
-}
-#contact #insta-icon:hover, #contact #insta-icon:active {
-  color: rgb(195, 42, 163);
-}
-#contact #fb-icon:hover, #contact #fb-icon:active {
-  color: rgb(59, 89, 152);
-}
-
 @media (max-width: 1024px) {
 
   .App {
@@ -352,7 +349,6 @@ a:hover {
   }
 
   #profile-container p {
-    font-size: 0.8rem;
     width: 100%;
     float: left;
   }
@@ -375,22 +371,12 @@ a:hover {
     font-size: 1.5rem;
   }
 
-  #contact {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  #contact p {
-    font-size: 0.8rem;
-    margin: 5px 0;
-  }
-
 }
 
 @media (max-width: 768px) {
   .App {
     grid-template-columns: 1fr;
-    grid-template-rows: 30dvh 70dvh 100dvh auto;
+    grid-template-rows: auto auto 90dvh auto;
     align-items: center;
     justify-content: center;
     gap: 50px;
@@ -414,17 +400,14 @@ a:hover {
     grid-column: 1;
     grid-row: 3;
   }
-  #contact {
-    grid-row: 4;
-  }
-  
   p {
     font-size: 1rem !important;
   }
 
   #profile {
-    width: 100%;
-    max-width: 100%;
+    width: max-content;
+    max-width: calc(100dvw - 10px);
+    margin: 0 auto;
   }
 
   #profile-text {
@@ -434,6 +417,7 @@ a:hover {
   #profile-container {
     display: grid;
     gap: 0 20px;
+    align-items: end;
   }
 
   #profile-container p {
@@ -454,11 +438,99 @@ a:hover {
 
 @media (max-width: 500px) {
 
-  p {
-    font-size: 0.9rem;
+  .App {
+    padding:5px;
+    grid-template-rows: auto auto auto auto;
+  }
+
+  #details:has(.isFullScreen) {
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  html:has(.isFullScreen) {
+    height: 100dvh;
+    overflow: hidden;
   }
 
   #details {
+    position: relative;
+    scroll-margin-top: 10px;
     grid-column: 1;
+    max-height: 75dvh;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+  }
+
+  #full-screen-toggle {
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 101;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+
+  #full-screen-toggle::after {
+    display: block;
+    content: "";
+    background-image: url("./assets/icons/resize-up.svg");
+    background-size: contain;
+    padding: 5px;
+    width: 10px;
+    height: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: rgb(147, 198, 165);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  }
+
+  #details:has(.isFullScreen) #full-screen-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: 2rem;
+    cursor: pointer;
+    background-color: rgba(191, 158, 158, 0);
+  }
+
+  #details:has(.isFullScreen) #full-screen-toggle::after {
+    background-image: url("./assets/icons/resize-down.svg");
+  }
+
+  #about-text {
+    margin: 20px 0;
+  }
+
+  .course-name {
+    font-size: 1.2rem !important;
+  }
+
+  .team-member-image {
+    max-width: 150px;
+    max-height: 150px;
+  }
+
+  .team-member-about {
+    text-align: justify;
+  }
+
+  .info-container {
+    padding: 20px;
+    max-height: 100%;
+    overflow: scroll;
+  }
+
+  .info-container.isFullScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0; 
+    z-index: 100;
+    background-color: white;
+    border-radius: 0;
   }
 }
