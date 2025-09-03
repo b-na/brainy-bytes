@@ -4,7 +4,6 @@ import TeamMember from './components/TeamMember';
 import Profile from './components/Profile';
 import courses from './components/content/courses';
 import Course from './components/Course';
-import Contact from './components/Contact';
 import About from './components/About';
 import aboutContent from './components/content/about';
 
