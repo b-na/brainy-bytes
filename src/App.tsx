@@ -66,6 +66,9 @@ function App() {
           ))}
         </article>
       </section>
+      <footer id="footer">
+        <p>Copyright © 2025 Sabìna Romanova. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
