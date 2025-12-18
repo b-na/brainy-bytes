@@ -19,6 +19,9 @@ body {
   background-position: top left;
   background-repeat: repeat;
   background-color: rgba(187, 185, 217, 0.9);
+  -webkit-background-blend-mode: soft-light;
+  -moz-background-blend-mode: soft-light;
+  -o-background-blend-mode: soft-light;
   background-blend-mode: soft-light;
 }
 
